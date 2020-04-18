@@ -1,15 +1,15 @@
 import React from 'react';
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, RefObject } from 'react';
 
 export default function useClickOutside(
-  refs: React.RefObject<HTMLElement>[],
+  refs: RefObject<HTMLElement>[],
   onClickOutside: (e: MouseEvent) => void
 ): [boolean] {
   const [isActive, setActive] = useState(false);
 
   const isOutside = useCallback(
     (e: MouseEvent) => {
-      const test = refs.map(ref => {
+      const test = refs.map((ref) => {
         return (
           ref.current !== null && !ref.current.contains(e.target as HTMLElement)
         );

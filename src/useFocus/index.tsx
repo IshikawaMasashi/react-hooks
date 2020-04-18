@@ -12,7 +12,7 @@ function useFocus(): [
   const bind = React.useMemo(
     () => ({
       onFocus: (e: React.FocusEvent) => void setFocused(true),
-      onBlur: (e: React.FocusEvent) => void setFocused(false)
+      onBlur: (e: React.FocusEvent) => void setFocused(false),
     }),
     []
   );

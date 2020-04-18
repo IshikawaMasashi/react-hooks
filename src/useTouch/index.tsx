@@ -12,7 +12,7 @@ function useTouch(): [
   const bind = React.useMemo(
     () => ({
       onTouchStart: (e: React.TouchEvent) => void setTouched(true),
-      onTouchEnd: (e: React.TouchEvent) => void setTouched(false)
+      onTouchEnd: (e: React.TouchEvent) => void setTouched(false),
     }),
     []
   );

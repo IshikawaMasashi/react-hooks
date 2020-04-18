@@ -1,30 +1,30 @@
-const webpack = require("webpack");
-const { join } = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const playgroundBasedir = join(__dirname, "docs");
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+const webpack = require('webpack');
+const { join } = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const playgroundBasedir = join(__dirname, 'docs');
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
-  mode: "development",
-  entry: join(playgroundBasedir, "index.tsx"),
+  mode: 'development',
+  entry: join(playgroundBasedir, 'index.tsx'),
   output: {
     path: playgroundBasedir,
-    filename: "ReactContexify.js"
+    filename: 'ReactContexify.js',
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: ['.ts', '.tsx', '.js'],
   },
   module: {
     rules: [
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
-        loader: "ts-loader",
+        loader: 'ts-loader',
         options: {
           compilerOptions: {
-            noUnusedLocals: false
-          }
-        }
+            noUnusedLocals: false,
+          },
+        },
       },
       // {
       //   test: /\.s?css$/,
@@ -45,31 +45,31 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: "style-loader"
+            loader: 'style-loader',
           },
           {
-            loader: "css-loader"
-          }
-        ]
+            loader: 'css-loader',
+          },
+        ],
       },
       {
         test: /\.ttf$/,
-        use: ["file-loader"]
-      }
-    ]
+        use: ['file-loader'],
+      },
+    ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: join(playgroundBasedir, "index.html")
+      template: join(playgroundBasedir, 'index.html'),
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new MonacoWebpackPlugin()
+    new MonacoWebpackPlugin(),
   ],
   devServer: {
-    host: "localhost",
+    host: 'localhost',
     port: process.env.PORT || 8888,
     historyApiFallback: true,
-    open: true
+    open: true,
     // host: '0.0.0.0'
-  }
+  },
 };

@@ -12,7 +12,7 @@ function useHover(): [
   const bind = React.useMemo(
     () => ({
       onMouseEnter: (e: React.MouseEvent) => void setHovered(true),
-      onMouseLeave: (e: React.MouseEvent) => void setHovered(false)
+      onMouseLeave: (e: React.MouseEvent) => void setHovered(false),
     }),
     []
   );

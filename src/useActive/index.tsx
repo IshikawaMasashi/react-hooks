@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 export default function useActive(): [
   boolean,
@@ -10,10 +10,10 @@ export default function useActive(): [
 ] {
   const [isActive, setActive] = useState(false);
 
-  const bind = React.useMemo(
+  const bind = useMemo(
     () => ({
       onMouseDown: (e: React.MouseEvent) => void setActive(true),
-      onMouseUp: (e: React.MouseEvent) => void setActive(false)
+      onMouseUp: (e: React.MouseEvent) => void setActive(false),
     }),
     []
   );
