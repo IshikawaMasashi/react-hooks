@@ -13,5 +13,5 @@ export { default as useUnmount } from './useUnmount/index';
 
 export { default as useStateful } from './useStateful';
 
-export { default as useArray } from './useArray';
+export { default as useArray, UseArray } from './useArray';
 export { default as useHotkeys } from './useHotkeys';

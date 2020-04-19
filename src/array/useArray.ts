@@ -28,7 +28,9 @@ export type UseArrayActions<T> = {
   ) => void;
   removeIndex: (index: number) => void;
   updateAt: (index: number, item: T) => void;
+  insertAt: (index: number, item: T) => void;
 };
+
 export type UseArray<T = any> = [T[], UseArrayActions<T>];
 
 export function useArray<T = any>(initial: T[]): UseArray<T> {
@@ -79,6 +81,10 @@ export function useArray<T = any>(initial: T[]): UseArray<T> {
     setValue([...value.slice(0, index), item, ...value.slice(index + 1)]);
   }, []);
 
+  const insertAt = useCallback((index: number, item: T) => {
+    setValue([...value.slice(0, index), item, ...value.slice(index)]);
+  }, []);
+
   const actions = useMemo(
     () => ({
       setValue,
@@ -93,6 +99,7 @@ export function useArray<T = any>(initial: T[]): UseArray<T> {
       shift,
       modifyById,
       updateAt,
+      insertAt,
     }),
     [
       push,
@@ -105,6 +112,7 @@ export function useArray<T = any>(initial: T[]): UseArray<T> {
       shift,
       updateAt,
       modifyById,
+      insertAt,
     ]
   );
   return [value, actions];

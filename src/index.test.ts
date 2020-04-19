@@ -255,6 +255,18 @@ describe('useArray', () => {
     expect(result.current.value.length).toBe(1);
   });
 
+  it('should insert item at index', () => {
+    const { result } = renderHook(() => useArray([1, 3, 4, 5, 6, 7, 8, 9]));
+    const { insertAt } = result.current;
+
+    expect(result.current.value.length).toBe(8);
+
+    act(() => insertAt(1, 2));
+
+    // expect(result.current.value.length).toBe(9);
+    expect(result.current.value).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9]);
+  });
+
   it('should modify item by id', () => {
     const { result } = renderHook(() =>
       useArray([
