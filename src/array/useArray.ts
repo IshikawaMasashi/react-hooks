@@ -77,14 +77,29 @@ export function useArray<T = any>(initial: T[]): UseArray<T> {
     []
   );
 
-  const updateAt = useCallback((index: number, item: T) => {
-    setValue([...value.slice(0, index), item, ...value.slice(index + 1)]);
-  }, []);
+  const updateAt = useCallback(
+    (index: number, item: T) =>
+      setValue((v) => {
+        const value = v.slice();
+        value[index] = item;
+        return value;
+      }),
+    []
+  );
 
-  const insertAt = useCallback((index: number, item: T) => {
-    setValue([...value.slice(0, index), item, ...value.slice(index)]);
-  }, []);
+  const insertAt = useCallback(
+    (index: number, item: T) =>
+      setValue((v) => {
+        const value = v.slice();
 
+        index > value.length
+          ? (value[index] = item)
+          : value.splice(index, 0, item);
+
+        return value;
+      }),
+    []
+  );
   const actions = useMemo(
     () => ({
       setValue,
