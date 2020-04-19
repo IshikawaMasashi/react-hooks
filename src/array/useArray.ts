@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
 import { UseStateful } from '../useStateful';
 
+// https://github.com/streamich/react-use/blob/master/docs/useList.md
 export type UseArrayActions<T> = {
   setValue: UseStateful<T[]>['setValue'];
   add: (value: T | T[]) => void;
@@ -26,6 +27,7 @@ export type UseArrayActions<T> = {
     newValue: Partial<T>
   ) => void;
   removeIndex: (index: number) => void;
+  updateAt: (index: number, item: T) => void;
 };
 export type UseArray<T = any> = [T[], UseArrayActions<T>];
 
@@ -72,6 +74,11 @@ export function useArray<T = any>(initial: T[]): UseArray<T> {
       ),
     []
   );
+
+  const updateAt = useCallback((index: number, item: T) => {
+    setValue([...value.slice(0, index), item, ...value.slice(index + 1)]);
+  }, []);
+
   const actions = useMemo(
     () => ({
       setValue,
@@ -85,8 +92,20 @@ export function useArray<T = any>(initial: T[]): UseArray<T> {
       pop,
       shift,
       modifyById,
+      updateAt,
     }),
-    [push, unshift, move, clear, removeById, removeIndex, pop, shift]
+    [
+      push,
+      unshift,
+      move,
+      clear,
+      removeById,
+      removeIndex,
+      pop,
+      shift,
+      updateAt,
+      modifyById,
+    ]
   );
   return [value, actions];
 }

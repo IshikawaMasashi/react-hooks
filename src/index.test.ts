@@ -274,6 +274,15 @@ describe('useArray', () => {
     expect(modifiedElement.foo).toBe(true);
   });
 
+  it('should update item by index', () => {
+    const { result } = renderHook(() => useArray([1, 2, 3, 4, 5]));
+    const { updateAt } = result.current;
+
+    act(() => updateAt(2, 6));
+    expect(result.current.value.length).toBe(5);
+    expect(result.current.value[2]).toBe(6);
+  });
+
   it('should clear the array', () => {
     const { result } = renderHook(() => useArray([1, 2, 3, 4, 5]));
     const { clear } = result.current;
